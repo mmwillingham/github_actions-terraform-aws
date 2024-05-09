@@ -5,19 +5,19 @@ terraform {
       version = "4.52.0"
     }
 
-  backend "s3" {
-    bucket         	   = "bl-terraform-tfstate"
-    key              	   = "state/terraform.tfstate"
-    region         	   = "us-est-2"
-    encrypt        	   = true
-    dynamodb_table = "bl-terraform-tfstate-lockid
-  }
     random = {
       source  = "hashicorp/random"
       version = "3.4.3"
     }
   }
-  required_version = ">= 1.1.0"
+  
+  backend "s3" {
+    bucket         	   = "bl-terraform-tfstate"
+    key              	   = "state/terraform.tfstate"
+    region         	   = "us-east-2"
+    encrypt        	   = true
+    dynamodb_table = "bl-terraform-tfstate-lockid
+  }
 }
 
 # Configure and downloading plugins for aws
