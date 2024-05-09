@@ -12,7 +12,7 @@ env:
   TF_CLOUD_ORGANIZATION: "mmwillingham"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "github_actions-terraform-aws"
-  # CONFIG_DIRECTORY: "./"
+  CONFIG_DIRECTORY: "./"
 jobs:
   build:
     name: build
@@ -21,17 +21,41 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
        
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
-      
-      - name: Terraform Init
-        id: init
-        run: terraform init
-      
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan
-      
-      - name: Terraform Apply
+# Removing entries unrelated to terraform cloud.
+#       - name: Set up Terraform
+#         uses: hashicorp/setup-terraform@v3
+#       
+#       - name: Terraform Init
+#         id: init
+#         run: terraform init
+#       
+#       - name: Terraform Plan
+#         id: plan
+#         run: terraform plan
+#       
+#       - name: Terraform Apply
+#         id: apply
+#         run: terraform apply --auto-approve
+
+# Adding entries for terraform cloud
+      - name: Upload Configuration
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
+        id: apply-upload
+        with:
+          workspace: ${{ env.TF_WORKSPACE }}
+          directory: ${{ env.CONFIG_DIRECTORY }}
+
+      - name: Create Apply Run
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
+        id: apply-run
+        with:
+          workspace: ${{ env.TF_WORKSPACE }}
+          configuration_version: ${{ steps.apply-upload.outputs.configuration_version_id }}
+
+      - name: Apply
+        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.0
+        if: fromJSON(steps.apply-run.outputs.payload).data.attributes.actions.IsConfirmable
         id: apply
-        run: terraform apply --auto-approve
+        with:
+          run: ${{ steps.apply-run.outputs.run_id }}
+          comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
