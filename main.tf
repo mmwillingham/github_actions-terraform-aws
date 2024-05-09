@@ -37,12 +37,12 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "web" {
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t2.micro"
+  instance_type          = "${var.instance_type}"
   tags = {
-    Name = "HelloWorld_4"
+    Name = "${var.instance_tag_name}"
   }
   vpc_security_group_ids = [aws_security_group.web-sg.id]
-  subnet_id = "subnet-03274bc85f950b9ed"
+  subnet_id = "${var.subnet_id}"
 
   user_data = <<-EOF
               #!/bin/bash
@@ -55,7 +55,7 @@ resource "aws_instance" "web" {
 }
 
 resource "aws_security_group" "web-sg" {
-  vpc_id = "vpc-08d2e887c6294169a"
+  vpc_id = "${var.vpc_id}"
   name = "${random_pet.sg.id}-sg"
   ingress {
     from_port   = 8080
