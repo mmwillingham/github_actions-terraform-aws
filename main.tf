@@ -4,6 +4,14 @@ terraform {
       source  = "hashicorp/aws"
       version = "4.52.0"
     }
+
+  backend "s3" {
+    bucket         	   = "bl-terraform-tfstate"
+    key              	   = "state/terraform.tfstate"
+    region         	   = "us-est-2"
+    encrypt        	   = true
+    dynamodb_table = "bl-terraform-tfstate-lockid
+  }
     random = {
       source  = "hashicorp/random"
       version = "3.4.3"
