@@ -11,12 +11,13 @@ terraform {
     }
   }
   
+# NOTE: variables are not allowed here. Use the alternate method below.
 #  backend "s3" {
-#    bucket         	   = "${var.s3_bucket_name}"
-#    key              	   = "${var.s3_key}"
-#    region         	   = "${var.aws_region}"
+#    bucket         	   = "mybucketname"
+#    key              	   = "mykey"
+#    region         	   = "us-east-2"
 #    encrypt        	   = true
-#    dynamodb_table = "${var.dynamoDB_table_name}"
+#    dynamodb_table = "mytable"
 #  }
 }
 
