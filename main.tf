@@ -18,7 +18,7 @@ terraform {
 #    encrypt        	   = true
 #    dynamodb_table = "${var.dynamoDB_table_name}"
 #  }
-#}
+}
 
 data "terraform_remote_state" "network" {
   backend = "s3"
