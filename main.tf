@@ -1,3 +1,7 @@
+provider "aws" {
+  region     = "${var.aws_region}"
+}
+
 terraform {
   required_providers {
     aws = {
@@ -19,20 +23,19 @@ terraform {
 #    encrypt        	   = true
 #    dynamodb_table = "mytable"
 #  }
+
+  backend "s3" {
+  }
 }
 
 data "terraform_remote_state" "network" {
   backend = "s3"
   config = {
-    bucket = "${var.s3_bucket_name}"
-    key    = "${var.s3_key}"
-    region = "${var.aws_region}"
+    bucket         = "${var.s3_bucket_name}"
+    key            = "${var.s3_key}"
+    region         = "${var.aws_region}"
+    dynamodb_table = "${var.dynamoDB_table_name}"
   }
-}
-
-
-provider "aws" {
-  region     = "${var.aws_region}"
 }
 
 resource "random_pet" "sg" {}
