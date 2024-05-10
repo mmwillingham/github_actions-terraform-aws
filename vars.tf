@@ -25,7 +25,7 @@ variable "s3_bucket_name" {
 }
 
 variable "s3_key" {
-  default = "terraform.tfstate2"
+  default = "terraform.tfstate"
 }
 
 variable "dynamoDB_table_name" {
