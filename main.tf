@@ -28,16 +28,6 @@ terraform {
   }
 }
 
-data "terraform_remote_state" "network" {
-  backend = "s3"
-  config = {
-    bucket         = "${var.s3_bucket_name}"
-    key            = "${var.s3_key}"
-    region         = "${var.aws_region}"
-    dynamodb_table = "${var.dynamoDB_table_name}"
-  }
-}
-
 resource "random_pet" "sg" {}
 
 data "aws_ami" "ubuntu" {
