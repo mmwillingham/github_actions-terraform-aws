@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "4.52.0"
+      version >= "4.52.0"
     }
 
     random = {
@@ -20,7 +20,6 @@ terraform {
   }
 }
 
-# Configure and downloading plugins for aws
 provider "aws" {
   region     = "${var.aws_region}"
 }
