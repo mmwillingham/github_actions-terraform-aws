@@ -12,11 +12,11 @@ terraform {
   }
   
   backend "s3" {
-    bucket         	   = "bolauder-tfstate"
-    key              	   = "terraform.tfstate"
-    region         	   = "us-east-2"
+    bucket         	   = "${var.s3_bucket_name}"
+    key              	   = "${var.s3_key}"
+    region         	   = "${var.aws_region}"
     encrypt        	   = true
-    dynamodb_table = "bolauder-tfstate"
+    dynamodb_table = "${var.dynamoDB_table_name}"
   }
 }
 
