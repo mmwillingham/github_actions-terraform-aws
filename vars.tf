@@ -21,15 +21,15 @@ variable "instance_tag_name" {
 # These resources must already exist. I created them here: https://github.com/mmwillingham/github_actions-terraform-aws-backend/blob/main/vars.tf
 
 variable "s3_bucket_name" {
-  default = "bolauder-tfstate"
+  default = "bolauder-tfstate2"
 }
 
 variable "s3_key" {
-  default = "terraform.tfstate"
+  default = "terraform.tfstate2"
 }
 
 variable "dynamoDB_table_name" {
-  default = "bolauder-tfstate"
+  default = "bolauder-tfstate2"
 }
 
 
