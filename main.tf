@@ -11,14 +11,24 @@ terraform {
     }
   }
   
-  backend "s3" {
-    bucket         	   = "${var.s3_bucket_name}"
-    key              	   = "${var.s3_key}"
-    region         	   = "${var.aws_region}"
-    encrypt        	   = true
-    dynamodb_table = "${var.dynamoDB_table_name}"
+#  backend "s3" {
+#    bucket         	   = "${var.s3_bucket_name}"
+#    key              	   = "${var.s3_key}"
+#    region         	   = "${var.aws_region}"
+#    encrypt        	   = true
+#    dynamodb_table = "${var.dynamoDB_table_name}"
+#  }
+#}
+
+data "terraform_remote_state" "network" {
+  backend = "s3"
+  config = {
+    bucket = "${var.s3_bucket_name}"
+    key    = "${var.s3_key}"
+    region = "${var.aws_region}"
   }
 }
+
 
 provider "aws" {
   region     = "${var.aws_region}"
