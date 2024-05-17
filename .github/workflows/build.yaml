@@ -32,7 +32,7 @@ jobs:
         id: init
         run: terraform init -backend-config=backend.tfvars
       
-# NOTE: The backend entries are populated after plan
+# NOTE: The backend entries are populated after plan, but removed if there is nothing to do.
       - name: Terraform Plan
         id: plan
         run: terraform plan
