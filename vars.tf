@@ -15,7 +15,7 @@ variable "instance_type" {
 }
 
 variable "instance_tag_name" {
-  default = "HelloWorld_5"
+  default = "HelloWorld_6"
 }
 
 # These resources must already exist. I created them here: https://github.com/mmwillingham/github_actions-terraform-aws-backend/blob/main/vars.tf
