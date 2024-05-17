@@ -32,9 +32,9 @@ jobs:
         id: init
         run: terraform init -backend-config=backend.tfvars
       
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: terraform plan
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan
       
       # - name: Terraform Apply
       #   id: apply
